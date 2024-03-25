@@ -3,11 +3,10 @@ Scara robot for manipulation tasks
 
 ## Index
 
-1. Scara_Manipulator
-2. Kinematic Analysis
-    - Direct Kinematic Problem
-    - Inverse Kinematic Problem
-3. Design of Control Software
+1. Kinematic Analysis (https://github.com/dgladovic/Scara_Manipulator/blob/main/README.md#kinematic-analysis)
+    - Direct Kinematic Problem (https://github.com/dgladovic/Scara_Manipulator/blob/main/README.md#direct-kinematic-problem)
+    - Inverse Kinematic Problem (https://github.com/dgladovic/Scara_Manipulator/blob/main/README.md#inverse-kinematic-problem)
+2. Design of Control Software
     - Control Algorithm
     - Look up Table
 
