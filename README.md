@@ -38,8 +38,9 @@ The solution to the direct kinematic problem is then:
 
 
 ## Inverse Kinematic Problem
-
-![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Kinematic_coordinates.png)
+<div align="center">
+  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Kinematic_coordinates.png" width="300" height="300" border="10" margin="auto"/>
+</div>
 
 The solution to the inverse kinematic problem of a horizontal anthropomorphic robot configuration with two degrees of freedom (SCARA) is relatively simple (unlike the general case) and can be obtained by simple application of trigonometry. From the figure, it can be seen that for each position of the robot's end effector, two solutions or configurations are possible. By applying the cosine theorem, the first solution is:
 
