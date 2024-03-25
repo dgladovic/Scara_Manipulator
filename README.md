@@ -57,60 +57,17 @@ The control software of the robotic system is implemented using the mikroC Pro f
 
 The workspace of the robotic system can be easily determined if the maximum rotations of the robot's joints are known. By using the solution to the direct kinematic problem and varying the values of internal coordinates between the maximum joint angles, a grid of points representing the workspace is obtained.
 
+![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Computed_space.png)
+
 In the image, it can be observed that one part of the workspace grid is denser, representing the part of the workspace where the robot can be located in both configurations. This is better illustrated in the following image, where the zones in which the robot can be located in only one configuration are clearly delineated. Further designation will be used, where the zone in which the robot can only be in one configuration and the y-coordinate is positive, represents zone 1 (consistent with the fact that the robot's end effector can be located in that zone only if it is in configuration 1, i.e., the solution to the inverse kinematics is solution 1 in accordance with the maximum joint rotation), while the zone in which y is negative is called zone 2. Zone 4 represents the part where the robot's end effector can be located in both configurations, while zone 3 denotes the part of the space outside the reach of the robot's end effector. Additionally, auxiliary points A and B are marked, which will be discussed later.
+
+![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Segmented_Comp_space.png)
 
 It is envisioned that the end effector of the robot gripper moves to the desired point in a straight line. This is a somewhat more complex task but allows for certain advantages, such as avoiding any obstacles that may be present in the workspace. As the first step in the algorithm, it is necessary to determine in which zone the robot's end effector is currently located and in which zone the point to which the end effector is desired to be brought is located. For this purpose, the following functions are used to determine whether a point or part of the path belongs to a certain area.
 
-```
-function y = oblast1(p)
-    % Function checks if the path or point p belongs to region 1 and returns 1 if true
-    qmax = [(170/2)*2*pi/360; (254/2)*2*pi/360];
-    [m,~] = size(p);
-
-    for i = 1:m
-        if (p(i,1) - 150*cos(qmax(1)))^2 + (p(i,2) - 150*sin(qmax(1)))^2 <= 105^2
-            k = 1;
-            break
-        else
-            k = 0;
-        end
-    end
-    y = k;
-end
-
-function y = oblast2(p)
-    % Function checks if the path or point p belongs to region 2 and returns 1 if true
-    qmax = [(170/2)*2*pi/360; (254/2)*2*pi/360];
-    [m,~] = size(p);
-
-    for i = 1:m
-        if (p(i,1) - 150*cos(-qmax(1)))^2 + (p(i,2) - 150*sin(-qmax(1)))^2 <= 105^2
-            k = 1;
-            break
-        else
-            k = 0;
-        end
-    end
-    y = k;
-end
-
-function y = oblast3(p)
-    % Function checks if the path or point p belongs to region 3 and returns 1 if true
-    qmax = [(170/2)*2*pi/360; (254/2)*2*pi/360];
-    [m,~] = size(p);
-
-    for i = 1:m
-        if p(i,1)^2 + p(i,2)^2 <= 120.5^2
-            k = 1;
-            break
-        else
-            k = 0;
-        end
-    end
-    y = k;
-end
-
-```
+[area-1](https://github.com/dgladovic/Scara_Manipulator/blob/main/oblast1.m)
+[area-2](https://github.com/dgladovic/Scara_Manipulator/blob/main/oblast2.m)
+[area-3](https://github.com/dgladovic/Scara_Manipulator/blob/main/oblast3.m)
 
 The conditions that the function checks represent the geometric description of these areas.
 
