@@ -1,6 +1,17 @@
 # Scara_Manipulator
 Scara robot for manipulation tasks
 
+## Index
+
+1. Scara_Manipulator
+2. Kinematic Analysis
+    - Direct Kinematic Problem
+    - Inverse Kinematic Problem
+3. Design of Control Software
+    - Control Algorithm
+    - Look up Table
+
+
 # Kinematic Analysis
 
 ## Direct Kinematic Problem
@@ -111,8 +122,6 @@ Variable konf represents the configuration number in which the robot is currentl
 
 The values of the pulse count that need to be sent to the motors, as well as their direction to change the configuration, are obtained using the function menjaj_konf2 and stored in matrices M01 and M02, where 0 indicates a configuration change, and 1 and 2 indicate joints or motors 1 and 2, respectively. A detailed description of the matrix notation will be given below.
 
-```
-
 [Check robot configuration](https://github.com/dgladovic/Scara_Manipulator/blob/main/menjaj_konf3.m)
 
 Within this function, there is also an animation of the movement of robot segments during configuration change.
@@ -133,9 +142,6 @@ pp = putanja([xH,yH],[xA,yA],broj);
 [B] = kretanje(broj, [xH,yH], [xA,yA],konf);
 [M11,M12] = mot(korak,B)
 stablo(broj, [xH,yH], [xA,yA],konf,n)
-
-31
-
 [konf,M01,M02] = menjaj_konf2(konf, xA, yA,n,broj,korak)
 pp = putanja([xA,yA],[xB,yB],broj);
 [B] = kretanje(broj, [xA,yA], [xB,yB],konf);
@@ -180,8 +186,6 @@ pp = putanja([xA,yA],[xT,yT],broj);
 [M31,M32] = mot(korak,B)
 stablo(broj, [xA,yA], [xT,yT],konf,n)
 elseif pozH == 4 && pozT == 2
-
-32
 pp = putanja([xH,yH],[xB,yB],broj);
 if oblast3(pp) == 1
 pp = putanja([xH,yH],[xA,yA],broj);
@@ -227,8 +231,6 @@ else
 [M21,M22] = mot(korak,B)
 stablo(broj, [xA,yA], [xT,yT],konf,n)
 end
-
-33
 elseif pozH == 2 && pozT == 4
 pp = putanja([xH,yH],[xB,yB],broj);
 [B] = kretanje(broj, [xH,yH], [xB,yB],konf);
@@ -273,9 +275,6 @@ stablo(broj, [xA,yA], [xT,yT],konf,n)
 else
 [B] = kretanje(broj, [xH,yH], [xA,yA],konf);
 [M11,M12] = mot(korak,B)
-
-34
-
 stablo(broj, [xH,yH], [xA,yA],konf,n)
 pp = putanja([xA,yA],[xB,yB],broj);
 [B] = kretanje(broj, [xA,yA], [xB,yB],konf);
