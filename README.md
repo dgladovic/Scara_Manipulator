@@ -84,7 +84,7 @@ z_H
 163
 }
 
-# Inverse Kinematic Problem
+## Inverse Kinematic Problem
 
 The solution to the inverse kinematic problem of a horizontal anthropomorphic robot configuration with two degrees of freedom (SCARA) is relatively simple (unlike the general case) and can be obtained by simple application of trigonometry. From the figure, it can be seen that for each position of the robot's end effector, two solutions or configurations are possible. By applying the cosine theorem, the first solution is:
 
@@ -109,60 +109,56 @@ It is envisioned that the end effector of the robot gripper moves to the desired
 
 ```
 function y = oblast1(p)
-%funkcija proverava da li putanja ili tacka pripada oblasti 1 i vraca 1 ako
-%je tacno
-qmax = [(170/2)*2*pi/360; (254/2)*2*pi/360];
-[m,~] = size(p);
+    % Function checks if the path or point p belongs to region 1 and returns 1 if true
+    qmax = [(170/2)*2*pi/360; (254/2)*2*pi/360];
+    [m,~] = size(p);
 
-for i = 1:m
-if (p(i,1) - 150*cos(qmax(1)))^2 + (p(i,2) - 150*sin(qmax(1)))^2 <= 105^2
-k = 1;
-break
-else
-k = 0;
+    for i = 1:m
+        if (p(i,1) - 150*cos(qmax(1)))^2 + (p(i,2) - 150*sin(qmax(1)))^2 <= 105^2
+            k = 1;
+            break
+        else
+            k = 0;
+        end
+    end
+    y = k;
 end
-end
-y = k;
-end
+
 function y = oblast2(p)
-%funkcija proverava da li putanja ili tacka pripada oblasti 2 i vraca 1 ako
-%je tacno
-qmax = [(170/2)*2*pi/360; (254/2)*2*pi/360];
-[m,~] = size(p);
+    % Function checks if the path or point p belongs to region 2 and returns 1 if true
+    qmax = [(170/2)*2*pi/360; (254/2)*2*pi/360];
+    [m,~] = size(p);
 
-for i = 1:m
-if (p(i,1) - 150*cos(-qmax(1)))^2 + (p(i,2) - 150*sin(-qmax(1)))^2 <=
-105^2
-k = 1;
-break
-else
-k = 0;
+    for i = 1:m
+        if (p(i,1) - 150*cos(-qmax(1)))^2 + (p(i,2) - 150*sin(-qmax(1)))^2 <= 105^2
+            k = 1;
+            break
+        else
+            k = 0;
+        end
+    end
+    y = k;
 end
-end
-y = k;
-end
-
-25
 
 function y = oblast3(p)
-%funkcija proverava da li putanja ili tacka pripada oblasti 3 i vraca 1 ako
-%je tacno
-qmax = [(170/2)*2*pi/360; (254/2)*2*pi/360];
-[m,~] = size(p);
+    % Function checks if the path or point p belongs to region 3 and returns 1 if true
+    qmax = [(170/2)*2*pi/360; (254/2)*2*pi/360];
+    [m,~] = size(p);
 
-for i = 1:m
-if p(i,1)^2 + p(i,2)^2 <= 120.5^2
-k = 1;
-break
-else
-k = 0;
+    for i = 1:m
+        if p(i,1)^2 + p(i,2)^2 <= 120.5^2
+            k = 1;
+            break
+        else
+            k = 0;
+        end
+    end
+    y = k;
 end
-end
-y = k;
-end
+
 ```
 
-Услове које функција проверава представљају геометријски опис ових области.
+The conditions that the function checks represent the geometric description of these areas.
 
 ```
 
@@ -227,7 +223,6 @@ a(1,2) = 1;
 a(2,2) = 1;
 else
 
-27
 
 a(1,2) = 0;
 a(2,2) = 0;
@@ -277,7 +272,6 @@ B = qn';
 a = zeros(broj-1,2);
 a2 = zeros(broj-1,2);
 
-28
 
 a(1,1) = q1(1) - q2(1);
 a2(1,1) = q1(2) - q2(2);
@@ -882,8 +876,12 @@ clear Mbit;
 ```
 
 
-##"Look up" table
+# "Look up" table
 
 Here is a different approach to solving the robot control problem. Unlike the previous solution, first all possible achievable positions of the robot's gripper are determined. This is done by combining all possible discrete positions of the joint motors (q1,q2) using equations obtained by solving the inverse kinematic problem. Vectors T1 and T2 represent all possible values of internal coordinates (angular displacements of the motors). By combining these two vectors, we obtain two matrices (X,Y) that show the values of achievable gripper positions for that combination of pairs (q1,q2). These values are stored in the LAP.mat file and during control, they are loaded and searched for coordinate values depending on the desired position. The selection of the most optimal motor coordinate values (q1,q2) is done so that the error is minimized.
 
+![alt text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Lookup_table.png)
+
 Namely, by entering the desired gripper position in the workspace, the environment around that point is checked. Then, when searching for a set of points in the vicinity, moves are drawn from the desired position to each point in the vicinity in order to determine the smallest move. The point that provides the smallest move is taken as the final position of the gripper tip. For that point, a combination of internal motor coordinates is taken, and based on that, the number of pulses and the direction of movement sent to the motor are determined. As we can see in the example, the desired position is determined by xH, yH. The algorithm draws moves r1...r4 to corresponding points 1...4 and then chooses the smallest move. Specifically in this case, that move is r3, and the point whose pair of internal coordinates provides that position is point 3. With this method, there is no need to form a sequence of sending matrices and paths, but the motors execute the final movement in 2 moves. Configuration selection and position checking are still done according to the previous algorithm. This type of solution is suitable for manipulation problems, but not for continuous movement or control of the direction of the robot's tip.
+
+![alt text]([https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Lookup_table.png](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Lookup_Position.png)https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Lookup_Position.png)
