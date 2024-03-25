@@ -2,8 +2,8 @@
 Scara robot for manipulation tasks
 
 <div align="center">
-  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Physical_structure.png" width="340" height="220" border="10" style="margin-right:16px;"/>
-  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Kinematic_scheme.jpg" width="340" height="220" border="10"/>
+  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Physical_structure.png" width="340" height="auto" border="10" style="margin-right:24px;"/>
+  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Kinematic_scheme.jpg" width="340" height="auto" border="10"/>
 </div>
 
 ## Index
@@ -53,7 +53,7 @@ The solution to the direct kinematic problem is then:
 
 ## Inverse Kinematic Problem
 <div align="center">
-  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Kinematic_coordinates.png" width="300" height="300" border="10" margin="auto"/>
+  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Kinematic_coordinates.png" width="320" height="auto" border="10" margin="auto"/>
 </div>
 
 The solution to the inverse kinematic problem of a horizontal anthropomorphic robot configuration with two degrees of freedom (SCARA) is relatively simple (unlike the general case) and can be obtained by simple application of trigonometry. From the figure, it can be seen that for each position of the robot's end effector, two solutions or configurations are possible. By applying the cosine theorem, the first solution is:
@@ -77,13 +77,13 @@ The control software of the robotic system is implemented using the mikroC Pro f
 The workspace of the robotic system can be easily determined if the maximum rotations of the robot's joints are known. By using the solution to the direct kinematic problem and varying the values of internal coordinates between the maximum joint angles, a grid of points representing the workspace is obtained.
 
 <div align="center">
-<img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Computed_space.png" width="300" height="300" border="10" margin="auto"/>
+<img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Computed_space.png" width="320" height="auto" border="10" margin="auto"/>
 </div>
 
 In the image, it can be observed that one part of the workspace grid is denser, representing the part of the workspace where the robot can be located in both configurations. This is better illustrated in the following image, where the zones in which the robot can be located in only one configuration are clearly delineated. Further designation will be used, where the zone in which the robot can only be in one configuration and the y-coordinate is positive, represents zone 1 (consistent with the fact that the robot's end effector can be located in that zone only if it is in configuration 1, i.e., the solution to the inverse kinematics is solution 1 in accordance with the maximum joint rotation), while the zone in which y is negative is called zone 2. Zone 4 represents the part where the robot's end effector can be located in both configurations, while zone 3 denotes the part of the space outside the reach of the robot's end effector. Additionally, auxiliary points A and B are marked, which will be discussed later.
 
 <div align="center">
-<img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Segmented_Comp_space.png" width="300" height="300" border="10" margin="auto"/>
+<img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Segmented_Comp_space.png" width="320" height="auto" border="10" margin="auto"/>
 </div>
 
 It is envisioned that the end effector of the robot gripper moves to the desired point in a straight line. This is a somewhat more complex task but allows for certain advantages, such as avoiding any obstacles that may be present in the workspace. As the first step in the algorithm, it is necessary to determine in which zone the robot's end effector is currently located and in which zone the point to which the end effector is desired to be brought is located. For this purpose, the following functions are used to determine whether a point or part of the path belongs to a certain area.
