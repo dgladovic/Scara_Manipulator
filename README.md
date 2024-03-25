@@ -2,7 +2,7 @@
 Scara robot for manipulation tasks
 
 <div align="center" style="width:fit-content; height:auto">
-  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Physical_structure.png" width="320" height="auto" border="10" style="margin-right:24px;"/>
+  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Physical_structure.png" width="425" height="auto" border="10" style="margin-right:24px;"/>
   <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Kinematic_scheme.jpg" width="320" height="auto" border="10"/>
 </div>
 
