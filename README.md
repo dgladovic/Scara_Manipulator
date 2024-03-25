@@ -5,37 +5,37 @@ Scara robot for manipulation tasks
 
 ## Direct Kinematic Problem
 The direct kinematic problem (task) involves determining the relations through which external coordinates (in general, the position and orientation of the robot's end effector) can be uniquely expressed using internal coordinates (joint displacements of the robot). The solution to this problem is obtained using the Rodrigues' approach, i.e., by using Rodrigues' transformation matrices. In general, the Rodrigues transformation matrix is calculated as:
-
+<div align="center">
 ![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Rodrigo1.png)
-
+</div>
 Where ξ_k is equal to 1 if the joint is revolute (allowing rotation) and 0 if it is prismatic (allowing translation). q_k is the value of the generalized coordinate, while [e_k_d] is the dual object of the unit vector of the rotation axis, calculated as:
-
+<div align="center">
 ![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Rodrigo2.png)
-
+</div>
 
 The concept of the dual object is introduced for easier implementation of the vector product since it holds that:
-
+<div align="center">
 ![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Rodrigo3.png)
-
+</div>
 The position of the robot's end effector in the fixed coordinate system can be calculated as:
-
+<div align="center">
 ![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Rodrigo4.png)
-
+</div>
 
 It can be easily concluded that the matrices [A_0,1] and [A_3,4] are identity matrices, while the other two matrices are obtained using the Rodrigues pattern.
-
+<div align="center">
 ![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Rodrigo5.png)
-
+</div>
 
 From the figure, it can be seen that:
-
+<div align="center">
 ![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Rodrigo%206.png)
-
+</div>
 
 The solution to the direct kinematic problem is then:
-
+<div align="center">
 ![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Rodrigo7.png)
-
+</div>
 
 ## Inverse Kinematic Problem
 <div align="center">
@@ -57,18 +57,19 @@ The control software of the robotic system is implemented using the mikroC Pro f
 ## Control Algorithm
 
 The workspace of the robotic system can be easily determined if the maximum rotations of the robot's joints are known. By using the solution to the direct kinematic problem and varying the values of internal coordinates between the maximum joint angles, a grid of points representing the workspace is obtained.
-
+<div align="center">
 <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Computed_space.png" width="300" height="300" border="10" margin="auto"/>
-
+</div>
 In the image, it can be observed that one part of the workspace grid is denser, representing the part of the workspace where the robot can be located in both configurations. This is better illustrated in the following image, where the zones in which the robot can be located in only one configuration are clearly delineated. Further designation will be used, where the zone in which the robot can only be in one configuration and the y-coordinate is positive, represents zone 1 (consistent with the fact that the robot's end effector can be located in that zone only if it is in configuration 1, i.e., the solution to the inverse kinematics is solution 1 in accordance with the maximum joint rotation), while the zone in which y is negative is called zone 2. Zone 4 represents the part where the robot's end effector can be located in both configurations, while zone 3 denotes the part of the space outside the reach of the robot's end effector. Additionally, auxiliary points A and B are marked, which will be discussed later.
-
+<div align="center">
 <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Segmented_Comp_space.png" width="300" height="300" border="10" margin="auto"/>
-
+</div>
 It is envisioned that the end effector of the robot gripper moves to the desired point in a straight line. This is a somewhat more complex task but allows for certain advantages, such as avoiding any obstacles that may be present in the workspace. As the first step in the algorithm, it is necessary to determine in which zone the robot's end effector is currently located and in which zone the point to which the end effector is desired to be brought is located. For this purpose, the following functions are used to determine whether a point or part of the path belongs to a certain area.
-
+<div align="center">
 [area-1](https://github.com/dgladovic/Scara_Manipulator/blob/main/oblast1.m)
 [area-2](https://github.com/dgladovic/Scara_Manipulator/blob/main/oblast2.m)
 [area-3](https://github.com/dgladovic/Scara_Manipulator/blob/main/oblast3.m)
+</div>
 
 The conditions that the function checks represent the geometric description of these areas.
 
