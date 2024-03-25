@@ -3,7 +3,6 @@ Scara robot for manipulation tasks
 
 <div align="center">
   <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Physical_structure.png" width="420" height="290"  style="margin-right:24px;"/>
-  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Kinematic_scheme.jpg" width="420" height="290" />
 </div>
 
 ## Index
@@ -16,6 +15,10 @@ Scara robot for manipulation tasks
     - [Look up Table](#look-up-table)
 
 # Kinematic Analysis
+
+<div align="center">
+  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Kinematic_scheme.jpg" width="420" height="290" />
+</div>
 
 ## Direct Kinematic Problem
 The direct kinematic problem (task) involves determining the relations through which external coordinates (in general, the position and orientation of the robot's end effector) can be uniquely expressed using internal coordinates (joint displacements of the robot). The solution to this problem is obtained using the Rodrigues' approach, i.e., by using Rodrigues' transformation matrices. In general, the Rodrigues transformation matrix is calculated as:
