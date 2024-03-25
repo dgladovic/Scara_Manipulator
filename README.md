@@ -29,7 +29,7 @@ It can be easily concluded that the matrices [A_0,1] and [A_3,4] are identity ma
 
 From the figure, it can be seen that:
 
-![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Rodrigo6.png)
+![alt_text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Rodrigo%206.png)
 
 
 The solution to the direct kinematic problem is then:
