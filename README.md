@@ -452,8 +452,12 @@ clear Mbit;
 
 Here is a different approach to solving the robot control problem. Unlike the previous solution, first all possible achievable positions of the robot's gripper are determined. This is done by combining all possible discrete positions of the joint motors (q1,q2) using equations obtained by solving the inverse kinematic problem. Vectors T1 and T2 represent all possible values of internal coordinates (angular displacements of the motors). By combining these two vectors, we obtain two matrices (X,Y) that show the values of achievable gripper positions for that combination of pairs (q1,q2). These values are stored in the LAP.mat file and during control, they are loaded and searched for coordinate values depending on the desired position. The selection of the most optimal motor coordinate values (q1,q2) is done so that the error is minimized.
 
-![alt text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Lookup_table.png)
+<div align="center">
+  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Lookup_table.png" width="320" height="auto" border="10" margin="auto"/>
+</div>
 
 Namely, by entering the desired gripper position in the workspace, the environment around that point is checked. Then, when searching for a set of points in the vicinity, moves are drawn from the desired position to each point in the vicinity in order to determine the smallest move. The point that provides the smallest move is taken as the final position of the gripper tip. For that point, a combination of internal motor coordinates is taken, and based on that, the number of pulses and the direction of movement sent to the motor are determined. As we can see in the example, the desired position is determined by xH, yH. The algorithm draws moves r1...r4 to corresponding points 1...4 and then chooses the smallest move. Specifically in this case, that move is r3, and the point whose pair of internal coordinates provides that position is point 3. With this method, there is no need to form a sequence of sending matrices and paths, but the motors execute the final movement in 2 moves. Configuration selection and position checking are still done according to the previous algorithm. This type of solution is suitable for manipulation problems, but not for continuous movement or control of the direction of the robot's tip.
 
-![alt text](https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Lookup_Position.png)
+<div align="center">
+  <img src="https://github.com/dgladovic/Scara_Manipulator/blob/main/Assets/imgs/Lookup_Position.png" width="320" height="auto" border="10" margin="auto"/>
+</div>
